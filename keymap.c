@@ -22,7 +22,8 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _DVORAK,
 };
 
 // Custom keycodes for layer keys
@@ -61,8 +62,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                          KC_LCTL, KC_SPC, LOWER,        RAISE, KC_LGUI, TD(TD_ALT)
                                       //|--------------------------|  |--------------------------|
+  ),
 
-
+ [_DVORAK] = LAYOUT(
+  //|-----------------------------------------------------|                    |-----------------------------------------------------|
+     KC_ESC,  KC_QUOT, KC_COMM,  KC_DOT,  KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+     KC_TAB,   KC_A,     KC_O,    KC_E,   KC_U,  KC_I,                            KC_D,    KC_H,    KC_T,    KC_N,   KC_S,   KC_MINS,
+  //---------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+     KC_LSFT, KC_SCLN,   KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,   KC_W,      KC_V,    KC_Z, RSFT_T(KC_ENT),
+  //---------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                         KC_LCTL, KC_SPC,   LOWER,      RAISE, KC_LGUI, TD(TD_ALT)
+                                      //|--------------------------|  |--------------------------|
   ),
 
   [_LOWER] = LAYOUT( 
@@ -93,13 +104,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      KC_ESC, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,                      XXXXXXX,  KC_7,     KC_8,    KC_9,  XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     XXXXXXX, RGB_HUI, RGB_SAI, RGB_SPI, RGB_VAI, RGB_MOD,                      XXXXXXX,   KC_4,    KC_5,    KC_6,  KC_0,   RESET,\
+    DF(_DVORAK),RGB_HUI,RGB_SAI,RGB_SPI, RGB_VAI, RGB_MOD,                         XXXXXXX,   KC_4,    KC_5,    KC_6,  KC_0,   RESET,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LSFT, RGB_HUD, RGB_SAD, RGB_SPD, RGB_VAD, RGB_RMOD,                     XXXXXXX ,   KC_1,    KC_2,    KC_3,  XXXXXXX,  KC_ENT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LCTL, KC_SPC, KC_TRNS,      KC_TRNS, KC_LGUI, TD(TD_ALT) \
+                                         KC_LCTL, KC_SPC, KC_TRNS,      KC_TRNS, KC_LGUI, TD(TD_ALT) 
                                       //|--------------------------|  |--------------------------|
-  )
+  ),
+
 };
 
 
@@ -389,6 +401,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
+
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -469,3 +482,4 @@ void suspend_wakeup_init_user(void) {
 }
 
 #endif
+
