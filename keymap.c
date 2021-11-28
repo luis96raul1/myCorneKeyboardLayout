@@ -36,11 +36,6 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   MACRO1, //a
-  MACRO2, //e
-  MACRO3, //i
-  MACRO4, //o
-  MACRO5, //u
-  MACRO6  //n
 };
 
 enum {
@@ -49,6 +44,11 @@ enum {
     TD_SLA,
     TD_CAPLOCK,
     TD_ALT,
+    TD_E,
+    TD_I,
+    TD_O,
+    TD_U,
+    TD_N,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -90,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
-       KC_F1,  KC_F2,    KC_F3,   KC_F4,  KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,
+       KC_F1,  KC_F2,    KC_F3, TD(TD_E),  KC_F5,   KC_F6,                        KC_F7,  TD(TD_U),  TD(TD_I),TD(TD_O),  KC_F11, KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                      KC_INS,  KC_HOME, KC_PGUP, KC_LBRC, KC_RBRC, KC_BSLS,
+     XXXXXXX, MACRO1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_INS,  KC_HOME, KC_PGUP, KC_LBRC, TD(TD_N), KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      TD(TD_CAPLOCK),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      KC_ESC, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,                      XXXXXXX,  KC_7,     KC_8,    KC_9,  XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    DF(_DVORAK),RGB_HUI,RGB_SAI,RGB_SPI, RGB_VAI, RGB_MOD,                         XXXXXXX,   KC_4,    KC_5,    KC_6,  KC_0,   RESET,\
+    DF(_DVORAK),RGB_HUI,RGB_SAI,RGB_SPI, RGB_VAI, RGB_MOD,                      XXXXXXX,   KC_4,    KC_5,    KC_6,  KC_0,   RESET,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LSFT, RGB_HUD, RGB_SAD, RGB_SPD, RGB_VAD, RGB_RMOD,                     XXXXXXX ,   KC_1,    KC_2,    KC_3,  XXXXXXX,  KC_ENT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -114,19 +114,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void latin_e (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_3)SS_TAP(X_KP_0)));;
+reset_tap_dance (state); }
+else{register_code(KC_F4); }
+}
+
+void latin_i (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_1)));;
+reset_tap_dance (state); }
+else{register_code(KC_F9); }
+}
+
+void latin_o (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_2)));
+reset_tap_dance (state); }
+else{register_code(KC_F10); }
+}
+
+void latin_u (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_3)));
+reset_tap_dance (state); }
+else{register_code(KC_F8); }
+}
+
+void latin_n (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_4)));
+reset_tap_dance (state); }
+else{register_code(KC_RBRC); }
+}
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
     [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
-    // [TD_RIGHSHIFT] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_RSFT),
-    /*
-    [TD_PC] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, LSFT(KC_SCLN)),
-    [TD_COMI] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, LSFT(KC_QUOT)),
-    [TD_SLA] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, LSFT(KC_SLSH)),
-    */
+    [TD_E] = ACTION_TAP_DANCE_FN(latin_e),
+    [TD_I] = ACTION_TAP_DANCE_FN(latin_i),
+    [TD_O] = ACTION_TAP_DANCE_FN(latin_o),
+    [TD_U] = ACTION_TAP_DANCE_FN(latin_u),
+    [TD_N] = ACTION_TAP_DANCE_FN(latin_n),
 };
+
 
 int RGB_current_mode;
 
@@ -317,7 +351,7 @@ void render_logo(void) {
         0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
         0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0};
     oled_write_P(corne_logo, false);
-    oled_write_P(PSTR("corne"), false);
+    oled_write_P(PSTR("corne by  LuisR"), false);
 }
 
 void render_layer_state(void) {
@@ -420,42 +454,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
          case MACRO1:
     if (record->event.pressed) {
-            SEND_STRING("á");
-        } else {
-            
-        }
-        return false;
-        case MACRO2:
-    if (record->event.pressed) {
-            SEND_STRING("é");
-        } else {
-            
-        }
-        return false;
-        case MACRO3:
-    if (record->event.pressed) {
-            SEND_STRING("í");
-        } else {
-            
-        }
-        return false;
-        case MACRO4:
-    if (record->event.pressed) {
-            SEND_STRING("ó");
-        } else {
-            
-        }
-        return false;
-        case MACRO5:
-    if (record->event.pressed) {
-            SEND_STRING("ú ");
-        } else {
-            
-        }
-        return false;
-         case MACRO6:
-    if (record->event.pressed) {
-            SEND_STRING("ñ");
+            SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_0)));
         } else {
             
         }
@@ -482,4 +481,3 @@ void suspend_wakeup_init_user(void) {
 }
 
 #endif
-
