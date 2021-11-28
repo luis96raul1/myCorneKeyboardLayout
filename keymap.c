@@ -35,15 +35,13 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  MACRO1, //a
+  MACRO1,
 };
 
 enum {
-    TD_PC,
-    TD_COMI,
-    TD_SLA,
     TD_CAPLOCK,
     TD_ALT,
+    TD_A,
     TD_E,
     TD_I,
     TD_O,
@@ -72,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LSFT, KC_SCLN,   KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,   KC_W,      KC_V,    KC_Z, RSFT_T(KC_ENT),
   //---------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LCTL, KC_SPC,   LOWER,      RAISE, KC_LGUI, TD(TD_ALT)
+                                         KC_LCTL, KC_SPC,   LOWER,     RAISE, KC_LGUI, TD(TD_ALT)
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -84,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      TD(TD_CAPLOCK),XXXXXXX,KC_BRID,KC_MPRV,KC_VOLD,KC_MNXT,                     XXXXXXX , KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LCTL, KC_SPC, XXXXXXX,       RAISE, KC_LGUI, TD(TD_ALT)
+                                         KC_LCTL, KC_SPC,  XXXXXXX,     RAISE, KC_LGUI, TD(TD_ALT)
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -92,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
        KC_F1,  KC_F2,    KC_F3, TD(TD_E),  KC_F5,   KC_F6,                        KC_F7,  TD(TD_U),  TD(TD_I),TD(TD_O),  KC_F11, KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     XXXXXXX, MACRO1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_INS,  KC_HOME, KC_PGUP, KC_LBRC, TD(TD_N), KC_BSLS,
+     XXXXXXX, TD(TD_A), XXXXXXX, XXXXXXX, MACRO1, XXXXXXX,                       KC_INS,  KC_HOME, KC_PGUP, KC_LBRC, TD(TD_N), KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      TD(TD_CAPLOCK),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, XXXXXXX, KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, KC_SPC,  LOWER,      XXXXXXX, KC_LGUI, TD(TD_ALT)
+                                          KC_LCTL, KC_SPC,  LOWER,    XXXXXXX, KC_LGUI, TD(TD_ALT)
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -108,11 +106,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LSFT, RGB_HUD, RGB_SAD, RGB_SPD, RGB_VAD, RGB_RMOD,                     XXXXXXX ,   KC_1,    KC_2,    KC_3,  XXXXXXX,  KC_ENT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LCTL, KC_SPC, KC_TRNS,      KC_TRNS, KC_LGUI, TD(TD_ALT) 
+                                         KC_LCTL,  KC_SPC,  KC_TRNS,   KC_TRNS, KC_LGUI, TD(TD_ALT) 
                                       //|--------------------------|  |--------------------------|
   ),
 
 };
+
+void latin_a (qk_tap_dance_state_t *state, void *user_data) {
+if (state->count == 2) {
+SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_0)));
+reset_tap_dance (state); }
+else{register_code(XXXXXXX); }
+}
 
 void latin_e (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
@@ -154,6 +159,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
     [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
+    [TD_A] = ACTION_TAP_DANCE_FN(latin_a),
     [TD_E] = ACTION_TAP_DANCE_FN(latin_e),
     [TD_I] = ACTION_TAP_DANCE_FN(latin_i),
     [TD_O] = ACTION_TAP_DANCE_FN(latin_o),
@@ -454,7 +460,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
          case MACRO1:
     if (record->event.pressed) {
-            SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_0)));
+            SEND_STRING("luis96raul1@gmail.com\n");
         } else {
             
         }
