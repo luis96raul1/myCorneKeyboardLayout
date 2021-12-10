@@ -29,7 +29,6 @@ enum layers {
 // Custom keycodes for layer keys
 // Dual function escape with left command
 
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -80,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      XXXXXXX, XXXXXXX, KC_BRIU, XXXXXXX, KC_VOLU, KC_MPLY,                      XXXXXXX,   KC_PSCR,  KC_UP, XXXXXXX, XXXXXXX,  KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     TD(TD_CAPLOCK),XXXXXXX,KC_BRID,KC_MPRV,KC_VOLD,KC_MNXT,                     XXXXXXX , KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_ENT,
+     TD(TD_CAPLOCK),XXXXXXX,KC_BRID,KC_MPRV,KC_VOLD,KC_MNXT,                    XXXXXXX , KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                          KC_LCTL, KC_SPC,  XXXXXXX,     RAISE, KC_LGUI, TD(TD_ALT)
                                       //|--------------------------|  |--------------------------|
@@ -116,42 +115,60 @@ void latin_a (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_0)));
 reset_tap_dance (state); }
-else{register_code(XXXXXXX); }
+else{
+    register_code(XXXXXXX);
+    unregister_code(XXXXXXX);
+    reset_tap_dance (state); }
 }
 
 void latin_e (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_3)SS_TAP(X_KP_0)));;
 reset_tap_dance (state); }
-else{register_code(KC_F4); }
+else{
+    register_code(KC_F4);
+    unregister_code(KC_F4);
+    reset_tap_dance (state); }
 }
 
 void latin_i (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_1)));;
 reset_tap_dance (state); }
-else{register_code(KC_F9); }
+else{
+    register_code(KC_F9);
+    unregister_code(KC_F9);
+    reset_tap_dance (state); }
 }
 
 void latin_o (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_2)));
 reset_tap_dance (state); }
-else{register_code(KC_F10); }
+else{
+    register_code(KC_F10);
+    unregister_code(KC_F10);
+    reset_tap_dance (state); }
 }
 
 void latin_u (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_3)));
 reset_tap_dance (state); }
-else{register_code(KC_F8); }
+else{
+    register_code(KC_F8);
+    unregister_code(KC_F8);
+    reset_tap_dance (state); }
 }
 
 void latin_n (qk_tap_dance_state_t *state, void *user_data) {
 if (state->count == 2) {
 SEND_STRING(SS_LALT(SS_TAP(X_KP_1)SS_TAP(X_KP_6)SS_TAP(X_KP_4)));
 reset_tap_dance (state); }
-else{register_code(KC_RBRC); }
+else{
+    register_code(KC_RBRC);
+    unregister_code(KC_RBRC);
+    reset_tap_dance (state); }
 }
 
 // Tap Dance definitions
@@ -166,7 +183,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_U] = ACTION_TAP_DANCE_FN(latin_u),
     [TD_N] = ACTION_TAP_DANCE_FN(latin_n),
 };
-
 
 int RGB_current_mode;
 
