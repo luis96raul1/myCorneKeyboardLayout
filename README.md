@@ -17,5 +17,8 @@ There are some things that you need to know before start playing with your new C
 
 That's all, now you can edit every layer, add or remove fuctionalities 😉
 
+*To use accent, you have to press two times the vowel you wish in the third layer, if you are linux user, install unicode for this OS `sudo apt install unicode`, ñ is in the spanish layout ubication, but pressing two times in the same layer.
+
+
 Little disclaimer:
 The Dvorak layer is in beta phase, if you enter here, you'll need to unplug and plug the keyboard from the pc to return to the other layers.
