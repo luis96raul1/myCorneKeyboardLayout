@@ -17,6 +17,6 @@ There are some things that you need to know before start playing with your new C
 
 That's all, now you can edit every layer, add or remove fuctionalities 😉
 
-\*To use accent, you have to press two times the vowel you wish in the third layer, if you are linux user, install unicode for this OS `sudo apt install unicode`, ñ is in the spanish layout ubication, but pressing two times in the same layer.
+\* To use accent and spanish characters is possible pressing two times de vowel or character you want: ¡¿áéíóúñ
 
 Also you can switch between DVORAK and QWERTY on the third layer.
