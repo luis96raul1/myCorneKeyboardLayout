@@ -17,6 +17,7 @@ There are some things that you need to know before start playing with your new C
 
 That's all, now you can edit every layer, add or remove fuctionalities 😉
 
-\* To use accent and spanish characters is possible pressing two times de vowel or character you want: ¡¿áéíóúñ
+* To use accent and spanish characters is possible pressing two times de vowel or character you want: ¡¿áéíóú  
+-> only on US INTERNATIONAL input language, so you'll need to install this language in your favorite OS
 
 Also you can switch between DVORAK and QWERTY on the third layer.
