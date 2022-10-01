@@ -1,6 +1,20 @@
 
 #pragma once
 
+#include_next <mcuconf.h>
+
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
+
+#undef STM32_SERIAL_USE_USART2
+#define STM32_SERIAL_USE_USART2 TRUE
+
+#undef STM32_PWM_USE_TIM1
+#define STM32_PWM_USE_TIM1 TRUE
+
+#undef STM32_SERIAL_USART2_PRIORITY
+#define STM32_SERIAL_USART2_PRIORITY 10
+
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */
@@ -13,7 +27,7 @@
 #undef USE_I2C
 #undef SSD1306OLED
 
-#define USE_SERIAL_PD2
+// #define USE_SERIAL_PD2
 
 // #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 300
