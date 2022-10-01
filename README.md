@@ -4,7 +4,7 @@ Hello there!
 There are some things that you need to know before start playing with your new Corne Keyboard:
 
 - You'll need to install MSYS software:
-  - <a href="https://youtu.be/mz8WG5e--jA?t=376" target="blank">Here</a> are the instructions to install it in Windows (if you are in ubuntu with `qmk setup` it's enough) follow steps until the 12th step.
+  - <a href="https://youtu.be/mz8WG5e--jA?t=376" target="blank">Here</a> are the instructions to install it in Windows (if you are in ubuntu with `sudo python3 -m pip install qmk` and then `sudo qmk setup` it's enough) follow steps until the 12th step.
   - Then, you have to add all this folder ("myCorneKeyboardLayout") in a path like mine: `C:\Users\luis-\qmk_firmware\keyboards\crkbd\keymaps\myCorneKeyboardLayout`
 - At this point you're ready to go! So, here are some usefull links:
   - <a href="https://config.qmk.fm/#/crkbd/rev1/LAYOUT_split_3x6_3" target="blank">This link</a> can help you to know the 'name' of each key that you'll probably use.
